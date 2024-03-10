@@ -5,7 +5,7 @@ include 'db_connection.php';
 // Get all orders of user
 function getOrdersByUserID($userId) {
     global $conn;
-    $sql = "SELECT * FROM `order` WHERE userId = $userId";
+    $sql = "SELECT * FROM `orders` WHERE userId = $userId";
     $result = $conn->query($sql);
     $orders = array();
     if ($result->num_rows > 0) {
@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['act
 // Add a new order
 function addOrder($userId, $productId, $quantity) {
     global $conn;
-    $sql = "INSERT INTO `order` (userId, productId, quantity) VALUES ($userId, $productId, $quantity)";
+    $sql = "INSERT INTO `orders` (userId, productId, quantity) VALUES ($userId, $productId, $quantity)";
     if ($conn->query($sql) === TRUE) {
         return "New order added successfully";
     } else {

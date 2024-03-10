@@ -42,4 +42,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     echo addUser($email, $password, $username, $shippingAddress);
 }
 
+// Delete a user
+function deleteUser($userId) {
+    global $conn;
+    $sql = "DELETE FROM user WHERE userId = $userId";
+    if ($conn->query($sql) === TRUE) {
+        return "User deleted successfully";
+    } else {
+        return "Error: " . $sql . "<br>" . $conn->error;
+    }
+}
+
+// Endpoint to delete a user
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'deleteUser') {
+    $userId = $_POST['userId'];
+    echo deleteUser($userId);
+}
+
+// Update a user
+function updateUser($userId, $email, $password, $username, $shippingAddress) {
+    global $conn;
+    $sql = "UPDATE user SET email = '$email', password = '$password', username = '$username', shippingAddress = '$shippingAddress' WHERE userId = $userId";
+    if ($conn->query($sql) === TRUE) {
+        return "User updated successfully";
+    } else {
+        return "Error: " . $sql . "<br>" . $conn->error;
+    }
+}
+
+// Endpoint to update a user
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'updateUser') {
+    $userId = $_POST['userId'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $username = $_POST['username'];
+    $shippingAddress = $_POST['shippingAddress'];
+    echo updateUser($userId, $email, $password, $username, $shippingAddress);
+}
+
+
+
+
+
 ?>
