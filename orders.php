@@ -30,16 +30,14 @@ function addOrder($userId, $productId, $quantity)
     global $conn;
     $sql = "INSERT INTO orders (userId, productId, quantity) VALUES (?, ?, ?)";
 
-    // Prepare the statement
     $stmt = $conn->prepare($sql);
     if (!$stmt) {
         return "Error preparing statement: " . $conn->error;
     }
 
-    // Bind parameters and execute the statement
     $stmt->bind_param("iii", $userId, $productId, $quantity);
     if ($stmt->execute()) {
-        return "New order added successfully";
+        return "Order added successfully";
     } else {
         return "Error adding order: " . $stmt->error;
     }
@@ -56,7 +54,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $productId = $data['productId'];
     $quantity = $data['quantity'];
 
-    // Check if all required fields are provided
     if ($userId !== null && $productId !== null && $quantity !== null) {
         $response = addOrder($userId, $productId, $quantity);
         echo json_encode(array("message" => $response));
@@ -68,8 +65,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     http_response_code(405);
     echo json_encode(array("message" => "Method not allowed"));
 }
-
-
 
 // Function to get all orders
 function getAllOrders() {

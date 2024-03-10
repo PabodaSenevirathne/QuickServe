@@ -59,9 +59,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['ac
         http_response_code(400);
         echo json_encode(array("message" => "Incomplete data"));
     }
-} else {
-    http_response_code(405);
-    echo json_encode(array("message" => "add Method not allowed"));
 }
 
 
@@ -118,10 +115,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT' && isset($_GET['action']) && $_GET['act
         echo json_encode(array("message" => "productId not provided"));
     }
     exit;
-} else {
-    http_response_code(405);
-    echo json_encode(array("message" => "update Method not allowed"));
-    exit;
 }
 
 
@@ -129,40 +122,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT' && isset($_GET['action']) && $_GET['act
 function deleteProduct($productId)
 {
     global $conn;
-    $sql = "DELETE FROM product WHERE productId = ?";
-    $stmt = $conn->prepare($sql);
-    if (!$stmt) {
-        return "Error preparing statement: " . $conn->error;
-    }
-
-    $stmt->bind_param("i", $productId);
-    if ($stmt->execute()) {
-        return "Product deleted successfully";
+    $sql = "DELETE FROM product WHERE productId = $productId";
+    if ($conn->query($sql) === TRUE) {
+        echo "Record deleted successfully";
     } else {
-        return "Error deleting product: " . $stmt->error;
+        echo "Error deleting record: " . $conn->error;
     }
 }
 
 // Endpoint to delete a product
-if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
-    // Retrieve JSON data from the request body
-    $json_data = file_get_contents('php://input');
-    $data = json_decode($json_data, true);
-
-    // Check if JSON data is valid and contains the required parameters
-    if (isset($data['action']) && $data['action'] === 'deleteProduct' && isset($data['productId'])) {
-        // Extract productId from JSON data
-        $productId = $data['productId'];
-
-        // Delete the product
-        echo deleteProduct($productId);
-    } else {
-        http_response_code(400);
-        echo json_encode(array("message" => "Invalid JSON data or missing parameters"));
-    }
+if ($_SERVER['REQUEST_METHOD'] === 'DELETE' && isset($_GET['action']) && $_GET['action'] === 'deleteProduct') {
+    $productId = $_GET['productId'];
+    deleteProduct($productId);
 } else {
-    http_response_code(405); // Method Not Allowed
-    echo json_encode(array("message" => "DELETE method not allowed"));
+    http_response_code(405);
+    echo json_encode(array("message" => "delete Method not allowed"));
 }
 
 ?>

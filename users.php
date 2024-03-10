@@ -23,21 +23,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['act
     echo json_encode($users);
 }
 
-// // Endpoint to delete a user
-// if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
-//     $json_data = file_get_contents('php://input');
-//     $data = json_decode($json_data, true);
-
-//     if (isset($data['action']) && $data['action'] === 'deleteUser') {
-//         $userId = $data['userId'];
-//         echo deleteUser($userId);
-//     }
-// } else {
-//     http_response_code(405); // Method Not Allowed
-//     echo json_encode(array("message" => "DELETE method not allowed"));
-// }
-
-
 // Function to add a new user
 function addUser($email, $password, $username, $shippingAddress)
 {
@@ -77,9 +62,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['ac
         http_response_code(400);
         echo json_encode(array("message" => "Incomplete data"));
     }
-} else {
-    http_response_code(405);
-    echo json_encode(array("message" => "add Method not allowed"));
 }
 
 
@@ -137,48 +119,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT' && isset($_GET['action']) && $_GET['act
         echo json_encode(array("message" => "userId not provided"));
     }
     exit;
-} else {
-    http_response_code(405);
-    echo json_encode(array("message" => "update Method not allowed"));
-    exit;
 }
 
-// Function to delete a user
+// Function to delete a product
 function deleteUser($userId)
 {
     global $conn;
-    $sql = "DELETE FROM user WHERE userId = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $userId);
-
-    if ($stmt->execute()) {
-        return "User deleted successfully";
+    $sql = "DELETE FROM user WHERE userId = $userId";
+    if ($conn->query($sql) === TRUE) {
+        echo "Record deleted successfully";
     } else {
-        return "Error deleting user: " . $stmt->error;
+        echo "Error deleting record: " . $conn->error;
     }
 }
 
-// Endpoint to delete a user
-if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
-    // Retrieve JSON data from the request body
-    $json_data = file_get_contents('php://input');
-    $data = json_decode($json_data, true);
-
-    // Check if JSON data is valid and contains the required parameters
-    if (isset($data['action']) && $data['action'] === 'deleteUser' && isset($data['userId'])) {
-        // Extract userId from JSON data
-        $userId = $data['userId'];
-
-        // Delete the user
-        echo deleteUser($userId);
-    } else {
-        http_response_code(400);
-        echo json_encode(array("message" => "Invalid JSON data or missing parameters"));
-    }
+// Endpoint to delete a product
+if ($_SERVER['REQUEST_METHOD'] === 'DELETE' && isset($_GET['action']) && $_GET['action'] === 'deleteUser') {
+    $userId = $_GET['userId'];
+    deleteUser($userId);
 } else {
-    http_response_code(405); // Method Not Allowed
-    echo json_encode(array("message" => "DELETE method not allowed"));
+    http_response_code(405);
+    echo json_encode(array("message" => "delete Method not allowed"));
 }
+
+
+
+
 
 
 
