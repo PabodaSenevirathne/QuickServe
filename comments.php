@@ -24,27 +24,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['act
 }
 
 // Add a new comment
-function addComment($productId, $userId, $rating, $image, $text) {
+function addComment($productId, $userId, $rating, $image, $text){
     global $conn;
-    $sql = "INSERT INTO comments (productId, userId, rating, image, text) VALUES ($productId, $userId, $rating, '$image', '$text')";
-    if ($conn->query($sql) === TRUE) {
-        return "New comment added successfully";
+    $sql = "INSERT INTO comments (productId, userId, rating, image, text) VALUES (?, ?, ?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    if (!$stmt) {
+        return "Error preparing statement: " . $conn->error;
+    }
+
+    $stmt->bind_param("iisss", $productId, $userId, $rating, $image, $text);
+    if ($stmt->execute()) {
+        return "Comment added successfully";
     } else {
-        return "Error: " . $sql . "<br>" . $conn->error;
+        return "Error adding comment: " . $stmt->error;
     }
 }
 
-// Endpoint to add a new comment
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'addComment') {
-    $productId = $_POST['productId'];
-    $userId = $_POST['userId'];
-    $rating = $_POST['rating'];
-    $image = $_POST['image'];
-    $text = $_POST['text'];
-    echo addComment($productId, $userId, $rating, $image, $text);
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'addComment') {
+    $json_data = file_get_contents('php://input');
+    $data = json_decode($json_data, true);
+
+    $productId = $data['productId'];
+    $userId = $data['userId'];
+    $rating = $data['rating'];
+    $image = $data['image'];
+    $text = $data['text'];
+    
+    if ($productId !== null && $userId !== null && $rating !== null && $image !== null && $text !== null ) {
+        $response = addComment($productId, $userId, $rating, $image, $text);
+        echo json_encode(array("message" => $response));
+    } else {
+        http_response_code(400);
+        echo json_encode(array("message" => "Incomplete data"));
+    }
+} else {
+    http_response_code(405);
+    echo json_encode(array("message" => "add Method not allowed"));
 }
 
-// Delete a comment
+
+
+
+// Delete a comment (Use by the Admin user only)
 function deleteComment($commentId) {
     global $conn;
     $sql = "DELETE FROM comments WHERE id = $commentId";
@@ -60,7 +81,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     $commentId = $_POST['commentId'];
     echo deleteComment($commentId);
 }
-
 
 
 ?>

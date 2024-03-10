@@ -2,7 +2,7 @@
 
 include 'db_connection.php';
 
-// Get all orders of user
+// Get all orders by user id
 function getOrdersByUserID($userId)
 {
     global $conn;
@@ -17,7 +17,7 @@ function getOrdersByUserID($userId)
     return $orders;
 }
 
-// Endpoint to get orders of user
+// Endpoint to get orders of user by user id
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['action'] === 'getOrdersByUserId') {
     $userId = $_GET['userId'];
     $orders = getOrdersByUserId($userId);
@@ -25,17 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['act
 }
 
 // Add a new order
-// function addOrder($userId, $productId, $quantity) {
-//     global $conn;
-//     $sql = "INSERT INTO `orders` (userId, productId, quantity) VALUES ($userId, $productId, $quantity)";
-//     if ($conn->query($sql) === TRUE) {
-//         echo "inside code";
-//         return "New order added successfully";
-//     } else {
-//         return "Error: " . $sql . "<br>" . $conn->error;
-//     }
-// }
-
 function addOrder($userId, $productId, $quantity)
 {
     global $conn;
@@ -57,20 +46,12 @@ function addOrder($userId, $productId, $quantity)
 }
 
 // Endpoint to add a new order
-// if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'addOrder') {
-//     $userId = $_POST['userId'];
-//     $productId = $_POST['productId'];
-//     $quantity = $_POST['quantity'];
-//     echo addOrder($userId, $productId, $quantity);
-// }
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $json_data = file_get_contents('php://input');
 
     // Decode JSON data
     $data = json_decode($json_data, true);
-    // Get user inputs from the request body
     $userId = $data['userId'];
     $productId = $data['productId'];
     $quantity = $data['quantity'];
@@ -84,6 +65,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo json_encode(array("message" => "Incomplete data"));
     }
 } else {
-    http_response_code(405); // Method Not Allowed
+    http_response_code(405);
     echo json_encode(array("message" => "Method not allowed"));
 }
+
+
+
+// Function to get all orders
+function getAllOrders() {
+    global $conn;
+    $sql = "SELECT * FROM `orders`";
+    $result = $conn->query($sql);
+    $orders = array();
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $orders[] = $row;
+        }
+    }
+    return $orders;
+}
+
+// Endpoint to get all orders
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['action'] === 'getAllOrders') {
+    $orders = getAllOrders();
+    echo json_encode($orders);
+}
+
+?>
+
+
