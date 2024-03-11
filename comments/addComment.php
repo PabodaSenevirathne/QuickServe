@@ -1,27 +1,6 @@
 <?php
 
-include 'db_connection.php';
-
-// Get all comments
-function getCommentsByProductId($productId) {
-    global $conn;
-    $sql = "SELECT * FROM comments WHERE productId = $productId";
-    $result = $conn->query($sql);
-    $comments = array();
-    if ($result->num_rows > 0) {
-        while($row = $result->fetch_assoc()) {
-            $comments[] = $row;
-        }
-    }
-    return $comments;
-}
-
-// Endpoint to get comments
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['action'] === 'getCommentsByProductId') {
-    $productId = $_GET['productId'];
-    $comments = getCommentsByProductId($productId);
-    echo json_encode($comments);
-}
+include '../db_connection.php';
 
 // Add a new comment
 function addComment($productId, $userId, $rating, $image, $text){
@@ -58,28 +37,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['ac
         echo json_encode(array("message" => "Incomplete data"));
     }
 }
-
-
-// Delete a comment (Use by the Admin user only)
-function deleteComment($id)
-{
-    global $conn;
-    $sql = "DELETE FROM comments WHERE userId = $id";
-    if ($conn->query($sql) === TRUE) {
-        echo "Record deleted successfully";
-    } else {
-        echo "Error deleting record: " . $conn->error;
-    }
-}
-
-// Endpoint to delete a product
-if ($_SERVER['REQUEST_METHOD'] === 'DELETE' && isset($_GET['action']) && $_GET['action'] === 'deleteComment') {
-    $id = $_GET['id'];
-    deleteComment($id);
-} else {
-    http_response_code(405);
-}
-
 
 
 ?>
