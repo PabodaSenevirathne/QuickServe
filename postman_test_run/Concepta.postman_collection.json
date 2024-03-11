@@ -1,0 +1,645 @@
+{
+	"info": {
+		"_postman_id": "2f99ceb3-26c8-4ecb-a924-2d2c17533589",
+		"name": "Concepta",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31100580"
+	},
+	"item": [
+		{
+			"name": "getAllProducts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/Semester2/QuickServe/product/getAllProducts.php?action=getAllProducts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"Semester2",
+						"QuickServe",
+						"product",
+						"getAllProducts.php"
+					],
+					"query": [
+						{
+							"key": "productId",
+							"value": "1",
+							"disabled": true
+						},
+						{
+							"key": "action",
+							"value": "getAllProducts"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addProduct",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n{\r\n    \"description\": \"Product5\",\r\n    \"image\": \"img/Product4.jpg\",\r\n    \"price\": 8,\r\n    \"shippingCost\": 8\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/Semester2/QuickServe/product/addProduct.php?action=addProduct",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"Semester2",
+						"QuickServe",
+						"product",
+						"addProduct.php"
+					],
+					"query": [
+						{
+							"key": "action",
+							"value": "addProduct"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateProduct",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"productId\": 10,\r\n    \"description\": \"Product10\",\r\n    \"image\": \"images/Product10.jpg\",\r\n    \"price\": 80.99,\r\n    \"shippingCost\": 6.99\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/Semester2/QuickServe/product/updateProduct.php?action=updateProduct",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"Semester2",
+						"QuickServe",
+						"product",
+						"updateProduct.php"
+					],
+					"query": [
+						{
+							"key": "action",
+							"value": "updateProduct"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteProduct",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/Semester2/QuickServe/product.php?action=deleteProduct&productId=9",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"Semester2",
+						"QuickServe",
+						"product.php"
+					],
+					"query": [
+						{
+							"key": "action",
+							"value": "deleteProduct"
+						},
+						{
+							"key": "productId",
+							"value": "9"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllUsers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/Semester2/QuickServe/users/getAllUsers.php?action=getAllUsers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"Semester2",
+						"QuickServe",
+						"users",
+						"getAllUsers.php"
+					],
+					"query": [
+						{
+							"key": "action",
+							"value": "getAllUsers"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"user10@example.com\",\r\n    \"password\": \"password1234\",\r\n    \"username\": \"john_doe\",\r\n    \"shippingAddress\": \"124 Main Street\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/Semester2/QuickServe/users/addUser.php?action=addUser",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"Semester2",
+						"QuickServe",
+						"users",
+						"addUser.php"
+					],
+					"query": [
+						{
+							"key": "action",
+							"value": "addUser"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateUser",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"userId\":\"5\",\r\n    \"email\":\"user5@gmaill.com\",\r\n    \"password\":\"1234\",\r\n    \"username\":\"user1\",\r\n    \"shippingAddress\":\"Main street\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/Semester2/QuickServe/users/updateUser.php?action=updateUser&userId=5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"Semester2",
+						"QuickServe",
+						"users",
+						"updateUser.php"
+					],
+					"query": [
+						{
+							"key": "action",
+							"value": "updateUser"
+						},
+						{
+							"key": "userId",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteUser",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/Semester2/QuickServe/users/deleteUser.php?action=deleteUser&userId=6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"Semester2",
+						"QuickServe",
+						"users",
+						"deleteUser.php"
+					],
+					"query": [
+						{
+							"key": "action",
+							"value": "deleteUser"
+						},
+						{
+							"key": "userId",
+							"value": "6"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addOrder",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\": \"10\",\r\n    \"productId\": 457,\r\n    \"quantity\": 4\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/Semester2/QuickServe/orders/addOrder.php",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"Semester2",
+						"QuickServe",
+						"orders",
+						"addOrder.php"
+					],
+					"query": [
+						{
+							"key": "action",
+							"value": "addOrder",
+							"disabled": true
+						},
+						{
+							"key": "userId",
+							"value": "3",
+							"disabled": true
+						},
+						{
+							"key": "productId",
+							"value": "8",
+							"disabled": true
+						},
+						{
+							"key": "quantity",
+							"value": "8",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllOrders",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/Semester2/QuickServe/orders/getAllOrders.php?action=getAllOrders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"Semester2",
+						"QuickServe",
+						"orders",
+						"getAllOrders.php"
+					],
+					"query": [
+						{
+							"key": "action",
+							"value": "getAllOrders"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getOrdersByUserID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/Semester2/QuickServe/orders/getOrdersByUserID.php?action=getOrdersByUserId&userId=3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"Semester2",
+						"QuickServe",
+						"orders",
+						"getOrdersByUserID.php"
+					],
+					"query": [
+						{
+							"key": "action",
+							"value": "getOrdersByUserId"
+						},
+						{
+							"key": "userId",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addToCart",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"userId\": 10,\r\n    \"productId\": 5,\r\n    \"quantity\": 8\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/Semester2/QuickServe/cart/addToCart.php?action=addToCart",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"Semester2",
+						"QuickServe",
+						"cart",
+						"addToCart.php"
+					],
+					"query": [
+						{
+							"key": "action",
+							"value": "addToCart"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getCartItemsByUserId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/Semester2/QuickServe/cart/getCartItemsByUserId.php?action=getCartItemsByUserId&userId=10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"Semester2",
+						"QuickServe",
+						"cart",
+						"getCartItemsByUserId.php"
+					],
+					"query": [
+						{
+							"key": "action",
+							"value": "getCartItemsByUserId"
+						},
+						{
+							"key": "userId",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateQuantityForUser",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"newQuantity\": 200\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/Semester2/QuickServe/cart/updateQuantityForUser.php?id=6&productId=5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"Semester2",
+						"QuickServe",
+						"cart",
+						"updateQuantityForUser.php"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "6"
+						},
+						{
+							"key": "productId",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteCartItem",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/Semester2/QuickServe/cart/deleteCartItem.php?action=deleteCartItem&id=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"Semester2",
+						"QuickServe",
+						"cart",
+						"deleteCartItem.php"
+					],
+					"query": [
+						{
+							"key": "action",
+							"value": "deleteCartItem"
+						},
+						{
+							"key": "id",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getCommentsByProductId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost/Semester2/QuickServe/comments/getCommentsByProductId.php?action=getCommentsByProductId&productId=5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"Semester2",
+						"QuickServe",
+						"comments",
+						"getCommentsByProductId.php"
+					],
+					"query": [
+						{
+							"key": "action",
+							"value": "getCommentsByProductId"
+						},
+						{
+							"key": "productId",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addComment",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"productId\": 6,\r\n\"userId\": 2,\r\n\"rating\": 5,\r\n\"image\":\"img/image-5\",\r\n\"text\":\"Great Product\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/Semester2/QuickServe/comments/addComment.php?action=addComment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"Semester2",
+						"QuickServe",
+						"comments",
+						"addComment.php"
+					],
+					"query": [
+						{
+							"key": "action",
+							"value": "addComment"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteComment",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/Semester2/QuickServe/comments/deleteComment.php?action=deleteComment&id=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"Semester2",
+						"QuickServe",
+						"comments",
+						"deleteComment.php"
+					],
+					"query": [
+						{
+							"key": "action",
+							"value": "deleteComment"
+						},
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
