@@ -142,10 +142,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE' && isset($_GET['action']) && $_GET['
     echo json_encode(array("message" => "delete Method not allowed"));
 }
 
-
-
-
-
-
-
 ?>

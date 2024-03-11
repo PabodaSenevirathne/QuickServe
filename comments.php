@@ -57,30 +57,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['ac
         http_response_code(400);
         echo json_encode(array("message" => "Incomplete data"));
     }
-} else {
-    http_response_code(405);
-    echo json_encode(array("message" => "add Method not allowed"));
 }
-
-
 
 
 // Delete a comment (Use by the Admin user only)
-function deleteComment($commentId) {
+function deleteComment($id)
+{
     global $conn;
-    $sql = "DELETE FROM comments WHERE id = $commentId";
+    $sql = "DELETE FROM comments WHERE userId = $id";
     if ($conn->query($sql) === TRUE) {
-        return "Comment deleted successfully";
+        echo "Record deleted successfully";
     } else {
-        return "Error: " . $sql . "<br>" . $conn->error;
+        echo "Error deleting record: " . $conn->error;
     }
 }
 
-// Endpoint to delete a comment
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'deleteComment') {
-    $commentId = $_POST['commentId'];
-    echo deleteComment($commentId);
+// Endpoint to delete a product
+if ($_SERVER['REQUEST_METHOD'] === 'DELETE' && isset($_GET['action']) && $_GET['action'] === 'deleteComment') {
+    $id = $_GET['id'];
+    deleteComment($id);
+} else {
+    http_response_code(405);
 }
+
 
 
 ?>
